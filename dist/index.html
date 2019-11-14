@@ -6,9 +6,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>To Do List</title>
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
 <body>
+	<div class="container-fluid">
+		<h1> JS TO DO LIST</h1>
+		<div class="row">
+			<aside class="col-md-3">
+				<h2> Project List</h2>
+				<div class="projectWrapper">
+				</div>
+				<div class="addProject">
+					<form action="">
+						<label for=""> Project Name</label>
+						<input type="text" id="projectName">
+						<div class="submit">
+							<button id="addProject" class="btn btn-default bg-light"> Add Project</button>
+							<button id="removeProject" class="btn btn-default bg-light"> Delete Project</button>
+						</div>
+					</form>
+				</div>
+			</aside>
+			<main class="col-md-8 ml-4 ">
+				<h2> To Do List</h2>
+				<div class="row todoListWrap mb-4">
+					<div class="col-md-2 th">
+						<h5> Title </h5>
+
+					</div>
+					<div class="col-md-4 th">
+							<h5> Description </h5>
+
+					</div>
+					<div class="col-md-2 th">
+							<h5> Due Date </h5>
+
+					</div>
+					<div class="col-md-2 th">
+							<h5> Priority </h5>
+
+					</div>
+					<div class="col-md-2 th">
+							<h5> Completed </h5>
+					</div>
+					
+				</div>
+				<form action="">
+						<label for=""> Title:</label>
+						<input type="text" id="title" placeholder="enter title">
+						<label for=""> Description:</label>
+						<input type="text" id="description" placeholder="enter description">
+						<label for=""> Due Date:</label>
+						<input type="date" id="dueDate" placeholder="enter date"> <br>
+						<label for=""> Priority</label> 
+						<div class="row">
+							<div class="col-md-2">
+								<div >
+								<input type="radio" id="urgent"  name="priority" value="urgent"> urgent
+							</div>
+							<div class="mb-4">
+								<input type="radio" id="normal" name="priority" value="normal"> normal 				
+							</div>
+							</div>
+							<div class="col-md-2 todo">
+									<button id="addTodo" class="btn btn-default bg-light float-right"> Add Todo</button>
+							</div>
+						
+						
+						</div>
+						
+						
+						
+					</form>
+			</main>
+			
+
+		</div>
+
+	</div>
+
   <script src="main.js"></script>
 </body>
 

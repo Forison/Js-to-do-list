@@ -1,3 +1,67 @@
-div{
-    color: red;
+body{
+	background-color: #f0e8ec;
+	margin: 0;
+}
+
+aside{
+	background-color: #8a0f51;
+	border-radius: 15px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	box-shadow: 0 1px 5px #e4e2e2cc;
+	color: #fff;
+	height: 90vh;
+	
+}
+h1, h2{
+	text-align: center;
+	margin-top: 5px;
+}
+.projectWrapper{
+	background-color: #fff;
+	border-radius: 15px;
+	box-shadow: 0 1px 5px #e4e2e2cc;
+	height: 60vh;
+	margin: 15px 20px 25px 20px;
+}
+#projectName{
+	border-radius: 4px;
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+button{
+	color: #8a0f51;
+	font-weight: bold;
+}
+main{
+	background-color: #edd3e1;
+	border-radius: 15px;
+	box-shadow: 0 1px 5px #e4e2e2cc;
+	height: 90vh;
+	
+}
+.th {
+	padding: 0;
+}
+
+.th h5{
+	background-color: #8a0f51;
+	padding: 5px;
+	text-align: center;
+	color: #fff;
+	border: 1px solid #edd3e1;
+
+}
+.todoListWrap{
+	background-color: #fff;
+	height: 62vh;
+}
+.todo button{
+	background-color: #8a0f51 !important;
+	color: #fff;
+}
+
+.todo button:hover{
+	background-color: #c75793 !important;
+	color: #fff;
 }
