@@ -1,0 +1,34 @@
+{
+  "name": "js-to-do-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Forison/Js-to-do-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Forison/Js-to-do-list/issues"
+  },
+  "homepage": "https://github.com/Forison/Js-to-do-list#readme",
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "html": "^1.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-plugin": "^1.0.5"
+  }
+}
