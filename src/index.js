@@ -1,6 +1,6 @@
 import './style.css';
-import homepage from './component/homepage';
+import todolist from './component/todo';
+import project from './component/project';
 
-homepage();
+todolist.createTodo('a', 'b', 'c', 'd');
 
-document.body.appendChild(homepage());
