@@ -1,6 +1,4 @@
 import './style.css';
-import todolist from './component/todo';
-import project from './component/project';
+import main from './component/dom';
 
-todolist.createTodo('a', 'b', 'c', 'd');
-
+console.log(main());
