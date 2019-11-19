@@ -22,7 +22,9 @@ h1, h2{
 	border-radius: 15px;
 	box-shadow: 0 1px 5px #e4e2e2cc;
 	height: 60vh;
+	overflow-y: scroll;
 	margin: 15px 20px 25px 20px;
+	
 }
 #projectName{
 	border-radius: 4px;
@@ -40,23 +42,26 @@ main{
 	height: 90vh;
 	
 }
-.th {
+/* .th {
 	padding: 0;
-}
+} */
 
-.th h5{
+/* .th {
 	background-color: #8a0f51;
 	padding: 5px;
 	text-align: center;
 	color: #fff;
 	border: 1px solid #edd3e1;
 
-}
+} */
 .todoListWrap{
-	background-color: #fff;
-	height: 62vh;
+	/* height: 64vh; */
+	text-align:  center;
+	padding: 0;
+	overflow-y: hidden;
+
 }
-.todo button{
+.todo button,.thead-dark {
 	background-color: #8a0f51 !important;
 	color: #fff;
 }
@@ -65,3 +70,39 @@ main{
 	background-color: #c75793 !important;
 	color: #fff;
 }
+.projects{
+	text-align: center;
+	border-bottom: 1px solid #8a0f51;
+	padding: 10px;
+	cursor: pointer;
+	color: #000;
+}
+
+.table-responsive{
+	background-color: #fff;
+	color: #000;
+  height: 64vh;
+	overflow-y: auto;
+	width: 100%;
+
+}
+
+.thead-dark {
+	/* display: table; */
+	overflow: auto;
+}
+tbody{
+	/* display: block; */
+	overflow: auto;
+	width: 100%
+}
+/*
+.thead-dark tr{
+	position: relative;
+}
+table{
+	clear: both;
+	border: 1px solid #963;
+
+	overflow: auto;
+} */

@@ -8,14 +8,30 @@ const $$ = document.querySelectorAll.bind(document);
 const main = (() => {
 	const project1 = () => {
 		const projectName = $('#projectName').value;
-		const project = document.createElement('h4')
-		$('.projectWrapper').appendChild(project)
-		project.style.color = 'black'
-		project.innerText = projectName;
-		console.log(project)
-		// const mykey = project.createProject(projectName)
-		// return myKey;
+		let proj = project.createProject(projectName);
+		project.projectList.push(proj)
 	};
+	const addProject = () =>{
+		$('#addProject').addEventListener('click', (e) =>{
+			e.preventDefault();
+			project1();
+			clearProjects()
+			showProject();
+		})
+	}
+	const clearProjects = () => {
+		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none')
+	}
+	const showProject = () => {
+		const allProject = project.projectList;
+		console.log(allProject)
+		allProject.forEach(proj => {
+			const project = document.createElement('h5')
+			project.innerHTML = proj.projectTitle
+			project.classList.add('projects')
+			$('.projectWrapper').appendChild(project)
+		})
+	}
 	// const todo = () => {
 	// 	const title = $('#title').value
 	// 	const description = $('#description').value
@@ -31,42 +47,85 @@ const main = (() => {
 		
 	// }
 	return{
-		project1
+		addProject
 	}
 
 
 })();
 
 
-$('#addProject').addEventListener('click', e =>{
-	e.preventDefault;
-	main.project1()
+main.addProject()
+
+$('#removeProject').addEventListener('click', (e)=>{
+	e.preventDefault();
 })
 
-const todoObj = () => {
-	let todoTitle = $('#title');
-	let todoDescription = $('#description');
-	let todoDate = $('#dueDate');
-	let todoPriority;
-	let myvalue = {};
-	$('#urgent').addEventListener('click', (e) => {
-		todoPriority = 'urgent'
-	});
-	$('#normal').addEventListener('click', (e) => {
-		todoPriority = 'normal';
-	});
-	$('#addTodo').addEventListener('click', (e) => {
-		e.preventDefault;
-		let a = todoTitle.value;
-		let b = todoDescription.value;
-		let c = todoDate.value;
-		myvalue = todolist.createTodo(a, b, c, todoPriority);
-	});
-	return myvalue;
-}
-const storeObj = () => {
+const todoObj = (() => {
+	const createtodo = () => {
+		const title = $('#title').value;
+		const des = $('#description').value;
+		const dueDate = $('#dueDate').value;
+		let priority;
+		$('#urgent').addEventListener('click', (e) => {
+			priority = 'urgent'
+		});
+		$('#normal').addEventListener('click', (e) => {
+			priority = 'normal';
+		});
+		const todo = todolist.createTodo(title, des, dueDate, priority)
+		todolist.lists.push(todo)
+		console.log(todolist.lists)
+	};
 	
-};
+	const showTodo = () => {
+		const lists = todolist.lists;
+		lists.forEach(todo => {
+			console.log(todo.title)
+			let tr = document.createElement('tr')
+			tr.classList.add('tbody-row')
+			
+			let title = document.createElement('td')
+			title.innerHTML = todo.title;
+			tr.appendChild(title)
+			
+			let des = document.createElement('td')
+			des.innerHTML = todo.description;
+			tr.appendChild(des)
+			
+			let dueD = document.createElement('td')
+			dueD.innerHTML = todo.dueDate;
+			tr.appendChild(dueD)
+
+			let prio = document.createElement('td')
+			prio.innerHTML = todo.priority;
+			tr.appendChild(prio)
+
+			$('tbody').appendChild(tr)
+		})
+		
+	}
+		const clearTodo = () => {
+		const node = $('tbody')
+		node.querySelectorAll('*').forEach(n => n.remove());
+	}
+	
+	const addTodo = () =>{
+		$('#addTodo').addEventListener('click', (e) =>{
+			e.preventDefault();
+			createtodo()
+			clearTodo()
+			showTodo()
+
+		})
+	}
+	
+	
+	return {
+		addTodo
+	}
+})()
+
+todoObj.addTodo();
 
 
 

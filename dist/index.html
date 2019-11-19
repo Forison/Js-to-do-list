@@ -28,30 +28,27 @@
 					</form>
 				</div>
 			</aside>
-			<main class="col-md-8 ml-4 ">
+			<main class="col-md-8 ml-4 p-0">
 				<h2> To Do List</h2>
-				<div class="row todoListWrap mb-4">
-					<div class="col-md-2 th">
-						<h5> Title </h5>
+			<div class="table-responsive">
+				<table class="table todoListWrap mb-4 " >
+					<thead class="thead-dark sticky-top">
+						<tr >
+							<td scope='col'>Title </td>
+							<td scope='col'>Description </td>
+							<td scope='col'>Due Date </td>
+							<td scope='col'>Priority </td>
+							<td scope='col'>Completed </td>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+						
+				</tbody>
+				
+				</table>
 
-					</div>
-					<div class="col-md-4 th">
-						<h5> Description </h5>
-
-					</div>
-					<div class="col-md-2 th">
-						<h5> Due Date </h5>
-
-					</div>
-					<div class="col-md-2 th">
-						<h5> Priority </h5>
-
-					</div>
-					<div class="col-md-2 th">
-						<h5> Completed </h5>
-					</div>
-
-				</div>
+			</div>
+			
 				<form action="">
 					<label for=""> Title:</label>
 					<input type="text" id="title" placeholder="enter title">
