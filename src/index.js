@@ -28,33 +28,49 @@ const main = (() => {
 		let key = $('#projectName').value;
 		key === '' || key === null ? key = 'Default' : key;
 		localStorage.setItem(key, '');
-		console.log(localStorage)
+		
 	}
 	const showProject = () => {
 		const allProject = project.projectList;
-		// for (let i = 0; i < localStorage.length; i++) {
-		// 	const project = document.createElement('h5')
-		// 	project.innerHTML = localStorage.key(i);
-		// 	project.classList.add('projects')
-		// 	$('.projectWrapper').appendChild(project)
-		// 	console.log(localStorage.key(i));
-		// }
-		allProject.forEach(proj => {
+		for (let i = 0; i < localStorage.length; i++) {
 			const project = document.createElement('h5')
-			project.innerHTML = proj.projectTitle
+			project.innerHTML = localStorage.key(i);
 			project.classList.add('projects')
 			$('.projectWrapper').appendChild(project)
-		})
+		
+		}
+		console.log(selectCurrProject())
 	}
+	 const selectCurrProject = () =>{
+		let currProject = 'Default';
+		let keys = [];
+		for (let i = 0; i < localStorage.length; i++) {
+			keys.push(localStorage.key(i));
+		}
+		 Array.from($$('.projects')).forEach(project =>{
+			 project.addEventListener('click', (e) =>{
+				 e.preventDefault();
+				 if(keys.includes(project.innerHTML))	{
+					currProject = project.innerHTML
+				 	return currProject;
+				 }
+			 })
+		 })
+		// console.log(currProject)	  
+		// return currProject
+	 }
 	return {
-		addProject
+		addProject,
+		showProject,
+		selectCurrProject
 	}
 
 
 })();
 
-
+main.showProject();
 main.addProject()
+main.selectCurrProject();
 
 $('#removeProject').addEventListener('click', (e) => {
 	e.preventDefault();
@@ -71,10 +87,11 @@ const todoObj = (() => {
 		todolist.lists.push(todo);
 
 		let value = [JSON.stringify(todolist.lists)];
-		let key = $('#projectName').value;
+		let key = main.selectCurrProject();
+		console.log(key)
 		key === '' || key === null ? key = 'Default' : key;
 		localStorage.setItem(key, value);
-		console.log(localStorage)
+	
 	};
 
 	const showTodo = () => {
