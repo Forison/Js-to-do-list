@@ -6,17 +6,22 @@ import project from './component/project';
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const changeActive = (proj) => {
+	if(project.currProj == proj.innerHTML){return;}
+	project.currProj = proj.innerHTML;
+	// showProject();
+	// todoObj.showTodo();
+	project.setTodoFromLocal()
+	console.log(project.currProj)
+}
+
 const main = (() => {
-	const project1 = () => {
-		const projectName = $('#projectName').value;
-		let proj = project.createProject(projectName);
-		project.projectList.push(proj)
-	};
 	const addProject = () => {
 		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
-			project1();
-			proToStorage();
+			const projectName = $('#projectName').value;
+			project.createProject(projectName);
+			project.projToLocal()
 			clearProjects();
 			showProject();
 		})
@@ -24,59 +29,54 @@ const main = (() => {
 	const clearProjects = () => {
 		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none')
 	}
-	const proToStorage = () => {
-		let key = $('#projectName').value;
-		key === '' || key === null ? key = 'Default' : key;
-		localStorage.setItem(key, '');
-		
-	}
+
 	const showProject = () => {
-		const allProject = project.projectList;
-		for (let i = 0; i < localStorage.length; i++) {
-			const project = document.createElement('h5')
-			project.innerHTML = localStorage.key(i);
-			project.classList.add('projects')
-			$('.projectWrapper').appendChild(project)
-		
-		}
-		console.log(selectCurrProject())
+		const allPro = project.projectList;
+		clearProjects();
+		for (let key in allPro){
+			const project1 = document.createElement('h5')
+			project1.innerHTML = key
+			project1.classList.add('projects')
+			$('.projectWrapper').appendChild(project1)
+			project1.addEventListener('click', (e)=>{
+				e.preventDefault()
+				if(project.currProj == project1.innerHTML){return;}
+				project.currProj =  project1.innerHTML
+				localStorage.setItem('currProj', project.currProj)
+				// clearProjects();
+				// showProject();
+				todoObj.clearDom($('tbody'))
+				todoObj.showTodo();
+				console.log(project.currProj)
+			})
+		}	
+		localStorage.setItem('proj', JSON.stringify(allPro))
+		project.setTodoFromLocal()
 	}
-	 const selectCurrProject = () =>{
-		let currProject = 'Default';
-		let keys = [];
-		for (let i = 0; i < localStorage.length; i++) {
-			keys.push(localStorage.key(i));
-		}
-		 Array.from($$('.projects')).forEach(project =>{
-			 project.addEventListener('click', (e) =>{
-				 e.preventDefault();
-				 if(keys.includes(project.innerHTML))	{
-					currProject = project.innerHTML
-				 	return currProject;
-				 }
-			 })
-		 })
-		// console.log(currProject)	  
-		// return currProject
-	 }
+	
 	return {
 		addProject,
-		showProject,
-		selectCurrProject
+		showProject
 	}
 
 
 })();
-
-main.showProject();
 main.addProject()
-main.selectCurrProject();
+main.showProject();
+
 
 $('#removeProject').addEventListener('click', (e) => {
 	e.preventDefault();
 })
 
 const todoObj = (() => {
+
+	const clearDom = (node) => {
+    while(node.firstChild) {
+      node.removeChild(node.firstChild);
+    }
+  }
+	
 	const createtodo = () => {
 		const title = $('#title').value;
 		const des = $('#description').value;
@@ -84,18 +84,12 @@ const todoObj = (() => {
 		let priority;
 		$("#urgent").checked ? priority = "urgent" : priority = 'normal';
 		const todo = todolist.createTodo(title, des, dueDate, priority)
-		todolist.lists.push(todo);
-
-		let value = [JSON.stringify(todolist.lists)];
-		let key = main.selectCurrProject();
-		console.log(key)
-		key === '' || key === null ? key = 'Default' : key;
-		localStorage.setItem(key, value);
-	
+		project.projectList[project.currProj].push(todo)
+		project.projToLocal();
 	};
 
 	const showTodo = () => {
-		const lists = todolist.lists;
+		const lists = project.projectList[project.currProj]
 		lists.forEach((todo, index) => {
 			let tr = document.createElement('tr')
 			tr.classList.add('tbody-row')
@@ -144,6 +138,7 @@ const todoObj = (() => {
 			});
 
 		});
+		localStorage.setItem('proj', JSON.stringify(project.projectList))
 
 	}
 	const checking = (checkbox, index) => {
@@ -159,18 +154,25 @@ const todoObj = (() => {
 	const addTodo = () => {
 		$('#addTodo').addEventListener('click', (e) => {
 			e.preventDefault();
+			
 			createtodo()
 			clearTodo()
 			showTodo()
 
 		})
 	}
+	
 
 
 	return {
-		addTodo
+		addTodo,
+		showTodo,
+		clearDom
 	}
 })()
 
+
+
 todoObj.addTodo();
+todoObj.showTodo();
 
