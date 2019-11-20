@@ -2,6 +2,7 @@ import './style.css';
 import todolist from './component/todo';
 import project from './component/project';
 
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
@@ -15,16 +16,29 @@ const main = (() => {
 		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
 			project1();
-			clearProjects()
+			proToStorage();
+			clearProjects();
 			showProject();
 		})
 	}
 	const clearProjects = () => {
 		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none')
 	}
+	const proToStorage = () => {
+		let key = $('#projectName').value;
+		key === '' || key === null ? key = 'Default' : key;
+		localStorage.setItem(key, '');
+		console.log(localStorage)
+	}
 	const showProject = () => {
 		const allProject = project.projectList;
-		console.log(allProject)
+		// for (let i = 0; i < localStorage.length; i++) {
+		// 	const project = document.createElement('h5')
+		// 	project.innerHTML = localStorage.key(i);
+		// 	project.classList.add('projects')
+		// 	$('.projectWrapper').appendChild(project)
+		// 	console.log(localStorage.key(i));
+		// }
 		allProject.forEach(proj => {
 			const project = document.createElement('h5')
 			project.innerHTML = proj.projectTitle
@@ -32,20 +46,6 @@ const main = (() => {
 			$('.projectWrapper').appendChild(project)
 		})
 	}
-	// const todo = () => {
-	// 	const title = $('#title').value
-	// 	const description = $('#description').value
-	// 	const dueDate = ('#dueDate').value
-	// 	let todoPriority;
-	// 	$('#urgent').addEventListener('click', (e) => {
-	// 		todoPriority = 'urgent'
-	// 	});
-	// 	$('#normal').addEventListener('click', (e) => {
-	// 		todoPriority = 'normal';
-	// 	});
-
-
-	// }
 	return {
 		addProject
 	}
@@ -68,14 +68,18 @@ const todoObj = (() => {
 		let priority;
 		$("#urgent").checked ? priority = "urgent" : priority = 'normal';
 		const todo = todolist.createTodo(title, des, dueDate, priority)
-		todolist.lists.push(todo)
-		console.log(todo)
+		todolist.lists.push(todo);
+
+		let value = [JSON.stringify(todolist.lists)];
+		let key = $('#projectName').value;
+		key === '' || key === null ? key = 'Default' : key;
+		localStorage.setItem(key, value);
+		console.log(localStorage)
 	};
 
 	const showTodo = () => {
 		const lists = todolist.lists;
 		lists.forEach((todo, index) => {
-			// console.log(todo.title)
 			let tr = document.createElement('tr')
 			tr.classList.add('tbody-row')
 			tr.setAttribute('data-id', index);
