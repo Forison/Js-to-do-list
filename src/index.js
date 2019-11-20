@@ -11,8 +11,8 @@ const main = (() => {
 		let proj = project.createProject(projectName);
 		project.projectList.push(proj)
 	};
-	const addProject = () =>{
-		$('#addProject').addEventListener('click', (e) =>{
+	const addProject = () => {
+		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
 			project1();
 			clearProjects()
@@ -43,10 +43,10 @@ const main = (() => {
 	// 	$('#normal').addEventListener('click', (e) => {
 	// 		todoPriority = 'normal';
 	// 	});
-		
-		
+
+
 	// }
-	return{
+	return {
 		addProject
 	}
 
@@ -56,7 +56,7 @@ const main = (() => {
 
 main.addProject()
 
-$('#removeProject').addEventListener('click', (e)=>{
+$('#removeProject').addEventListener('click', (e) => {
 	e.preventDefault();
 })
 
@@ -66,32 +66,28 @@ const todoObj = (() => {
 		const des = $('#description').value;
 		const dueDate = $('#dueDate').value;
 		let priority;
-		$('#urgent').addEventListener('click', (e) => {
-			priority = 'urgent'
-		});
-		$('#normal').addEventListener('click', (e) => {
-			priority = 'normal';
-		});
+		$("#urgent").checked ? priority = "urgent" : priority = 'normal';
 		const todo = todolist.createTodo(title, des, dueDate, priority)
 		todolist.lists.push(todo)
-		console.log(todolist.lists)
+		console.log(todo)
 	};
-	
+
 	const showTodo = () => {
 		const lists = todolist.lists;
-		lists.forEach(todo => {
-			console.log(todo.title)
+		lists.forEach((todo, index) => {
+			// console.log(todo.title)
 			let tr = document.createElement('tr')
 			tr.classList.add('tbody-row')
-			
+			tr.setAttribute('data-id', index);
+
 			let title = document.createElement('td')
 			title.innerHTML = todo.title;
 			tr.appendChild(title)
-			
+
 			let des = document.createElement('td')
 			des.innerHTML = todo.description;
 			tr.appendChild(des)
-			
+
 			let dueD = document.createElement('td')
 			dueD.innerHTML = todo.dueDate;
 			tr.appendChild(dueD)
@@ -100,17 +96,47 @@ const todoObj = (() => {
 			prio.innerHTML = todo.priority;
 			tr.appendChild(prio)
 
+			let completed = document.createElement('td');
+			let checkbox = document.createElement('input');
+			checkbox.classList.add('complete');
+			checkbox.type = 'checkbox';
+			checkbox.name = 'completed';
+			completed.appendChild(checkbox);
+			tr.appendChild(completed)
+
+			let action = document.createElement('td');
+			action.classList.add("d-flex");
+			tr.appendChild(action);
+			let edit = document.createElement('button');
+			edit.classList.add('edit', 'pl-2', 'pr-2');
+			edit.innerHTML = 'Edit';
+			let del = document.createElement('button');
+			del.innerHTML = 'Del';
+			del.classList.add('ml-2', 'del', 'pl-2', 'pr-2');
+			action.appendChild(edit);
+			action.appendChild(del);
+
 			$('tbody').appendChild(tr)
-		})
-		
+
+			checkbox.addEventListener('click', () => {
+				checking(checkbox, index)
+			});
+
+		});
+
 	}
-		const clearTodo = () => {
+	const checking = (checkbox, index) => {
+		let elements = document.querySelectorAll('.tbody-row');
+		checkbox.checked ? elements[index].classList.add('strike') : elements[index].classList.remove('strike');
+	}
+
+	const clearTodo = () => {
 		const node = $('tbody')
 		node.querySelectorAll('*').forEach(n => n.remove());
 	}
-	
-	const addTodo = () =>{
-		$('#addTodo').addEventListener('click', (e) =>{
+
+	const addTodo = () => {
+		$('#addTodo').addEventListener('click', (e) => {
 			e.preventDefault();
 			createtodo()
 			clearTodo()
@@ -118,14 +144,12 @@ const todoObj = (() => {
 
 		})
 	}
-	
-	
+
+
 	return {
 		addTodo
 	}
 })()
 
 todoObj.addTodo();
-
-
 

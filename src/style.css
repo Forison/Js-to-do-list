@@ -88,21 +88,36 @@ main{
 }
 
 .thead-dark {
-	/* display: table; */
 	overflow: auto;
 }
 tbody{
-	/* display: block; */
 	overflow: auto;
 	width: 100%
 }
-/*
-.thead-dark tr{
-	position: relative;
-}
-table{
-	clear: both;
-	border: 1px solid #963;
 
-	overflow: auto;
-} */
+.strike{
+	text-decoration: line-through;
+	color: #ff0000;
+}
+.del{
+	background-color:#ff0000;
+	border: 0;
+	border-radius: 3px;
+	color:#fff;
+	font-size: 12px;
+}
+.edit{
+	background-color:#008000;
+	border: 0;
+	border-radius: 3px;
+	color:#fff;
+	font-size: 12px;
+}
+.edit:hover{
+	background-color:#01aa01;
+	color:#e0dede;
+}
+.del:hover{
+	background-color:#d40404;
+	color:#e0dede;
+}
