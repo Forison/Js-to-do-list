@@ -14,17 +14,16 @@ aside{
 	
 }
 h1, h2{
-	text-align: center;
 	margin-top: 5px;
+	text-align: center;
 }
 .projectWrapper{
 	background-color: #fff;
 	border-radius: 15px;
 	box-shadow: 0 1px 5px #e4e2e2cc;
 	height: 60vh;
-	overflow-y: scroll;
 	margin: 15px 20px 25px 20px;
-	
+	overflow-y: scroll;
 }
 #projectName{
 	border-radius: 4px;
@@ -43,14 +42,12 @@ main{
 	border-radius: 15px;
 	box-shadow: 0 1px 5px #e4e2e2cc;
 	height: 90vh;
-	
 }
 
 .todoListWrap{
-	text-align:  center;
-	padding: 0;
 	overflow-y: hidden;
-
+	padding: 0;
+	text-align:  center;
 }
 .todo button,.thead-dark {
 	background-color: #8a0f51 !important;
@@ -62,11 +59,11 @@ main{
 	color: #fff;
 }
 .projects{
-	text-align: center;
 	border-bottom: 1px solid #8a0f51;
-	padding: 10px;
-	cursor: pointer;
 	color: #000;
+	cursor: pointer;
+	padding: 10px;
+	text-align: center;
 }
 
 .table-responsive{
@@ -75,9 +72,7 @@ main{
   height: 64vh;
 	overflow-y: auto;
 	width: 100%;
-
 }
-
 .thead-dark {
 	overflow: auto;
 }
@@ -87,8 +82,8 @@ tbody{
 }
 
 .strike{
-	text-decoration: line-through;
 	color: #ff0000;
+	text-decoration: line-through;
 }
 .del{
 	background-color:#ff0000;

@@ -13,67 +13,67 @@ const main = (() => {
 		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
 			const projectName = $('#projectName').value;
-			if(projectName === '') {
-				alert('Project name can not be blank ')
+			if (projectName === '') {
+				alert('Project name can not be blank ');
 			} else {
 				project.createProject(projectName);
-				project.projToLocal()
+				project.projToLocal();
 				clearProjects();
 				showProject();
 			}
-			
+
 		})
 	}
 	const clearProjects = () => {
-		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none')
+		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none');
 	}
 
 	const showProject = () => {
 		const allPro = project.projectList;
 		clearProjects();
-		for (let key in allPro){
-			const project1 = document.createElement('h5')
-			project1.innerHTML = key
-			project1.classList.add('projects')
-			$('.projectWrapper').appendChild(project1)
-			project1.addEventListener('click', (e) =>{
+		for (let key in allPro) {
+			const project1 = document.createElement('h5');
+			project1.innerHTML = key;
+			project1.classList.add('projects');
+			$('.projectWrapper').appendChild(project1);
+			project1.addEventListener('click', (e) => {
 				e.preventDefault();
-				if(project.currProj == project1.innerHTML){return;}
-				project.currProj =  project1.innerHTML
+				if (project.currProj == project1.innerHTML) { return; }
+				project.currProj = project1.innerHTML;
 				localStorage.setItem('currProj', project.currProj)
-				todoObj.clearDom($('tbody'))
+				todoObj.clearDom($('tbody'));
 				todoObj.showTodo();
 				project1.classList.add('active')
-				changeActive()
-				delProject()
-			})
-		}	
-		localStorage.setItem('proj', JSON.stringify(allPro))
-		project.setTodoFromLocal()
-		
+				changeActive();
+				delProject();
+			});
+		}
+		localStorage.setItem('proj', JSON.stringify(allPro));
+		project.setTodoFromLocal();
+
 	}
 
-	const delProject = (i) =>{
-		$('#removeProject').addEventListener('click', (e) =>{
-			console.log(project.projectList[project.currProj])
-			if(project.currProj !== 'Default'){
-				delete project.projectList[project.currProj]
-				showProject()
-				window.location.reload();	
-			}
+	const delProject = (i) => {
+		$('#removeProject').addEventListener('click', (e) => {
 			
-		})
-		
+			if (project.currProj !== 'Default') {
+				delete project.projectList[project.currProj];
+				showProject();
+				window.location.reload();
+			}
+
+		});
+
 	}
-	
+
 	return {
 		addProject,
 		showProject
-	}
+	};
 
 
 })();
-main.addProject()
+main.addProject();
 main.showProject();
 
 $('#removeProject').addEventListener('click', (e) => {
@@ -83,34 +83,34 @@ $('#removeProject').addEventListener('click', (e) => {
 const todoObj = (() => {
 
 	const clearDom = (node) => {
-    while(node.firstChild) {
-      node.removeChild(node.firstChild);
-    }
-  }
-	
+		while (node.firstChild) {
+			node.removeChild(node.firstChild);
+		}
+	}
+
 	const createtodo = () => {
 		const title = $('#title').value;
 		const des = $('#description').value;
 		const dueDate = $('#dueDate').value;
 		let priority;
 		$("#urgent").checked ? priority = "urgent" : priority = 'normal';
-		const todo = todolist.createTodo(title, des, dueDate, priority)
-		project.projectList[project.currProj].push(todo)
+		const todo = todolist.createTodo(title, des, dueDate, priority);
+		project.projectList[project.currProj].push(todo);
 		project.projToLocal();
-		
+
 	};
 
 	const showTodo = () => {
-		const lists = project.projectList[project.currProj]
+		const lists = project.projectList[project.currProj];
 		lists.forEach((todo, index) => {
-			let tr = document.createElement('tr')
-			tr.classList.add('tbody-row')
+			let tr = document.createElement('tr');
+			tr.classList.add('tbody-row');
 			tr.setAttribute('data-id', index);
 
-			for(let ele in todo){
-				let td = document.createElement('td')
-				td.innerHTML = todo[ele]
-				tr.appendChild(td)
+			for (let ele in todo) {
+				let td = document.createElement('td');
+				td.innerHTML = todo[ele];
+				tr.appendChild(td);
 			}
 
 			let completed = document.createElement('td');
@@ -119,7 +119,7 @@ const todoObj = (() => {
 			checkbox.type = 'checkbox';
 			checkbox.name = 'completed';
 			completed.appendChild(checkbox);
-			tr.appendChild(completed)
+			tr.appendChild(completed);
 
 			let action = document.createElement('td');
 			action.classList.add("d-flex");
@@ -127,9 +127,9 @@ const todoObj = (() => {
 			const edit = document.createElement('button');
 			edit.classList.add('edit', 'pl-2', 'pr-2');
 			edit.innerHTML = 'Edit';
-			edit.addEventListener('click', (e)=>{
+			edit.addEventListener('click', (e) => {
 				e.preventDefault();
-				$('.edit-todo').style.display = 'block'
+				$('.edit-todo').style.display = 'block';
 				$('aside').style.opacity = 0.1;
 				$('aside').style.opacity = 0.1;
 				$('.table-responsive').style.opacity = 0.1;
@@ -137,27 +137,27 @@ const todoObj = (() => {
 				$('h1').style.opacity = 0.1;
 				$('.main-T').style.display = 'none';
 				editTodo(index);
-				
-			})
+
+			});
 			const del = document.createElement('button');
 			del.innerHTML = 'Del';
-			
+
 			del.classList.add('ml-2', 'del', 'pl-2', 'pr-2');
 			action.appendChild(edit);
 			action.appendChild(del);
 
-			$('tbody').appendChild(tr)
+			$('tbody').appendChild(tr);
 			del.addEventListener('click', (e) => {
-				clearDom($('tbody'))
-				project.projectList[project.currProj].splice(index, 1)
-				showTodo()
-			})
+				clearDom($('tbody'));
+				project.projectList[project.currProj].splice(index, 1);
+				showTodo();
+			});
 			checkbox.addEventListener('click', () => {
-				checking(checkbox, index)
+				checking(checkbox, index);
 			});
 
 		});
-		localStorage.setItem('proj', JSON.stringify(project.projectList))
+		localStorage.setItem('proj', JSON.stringify(project.projectList));
 	}
 	const checking = (checkbox, index) => {
 		let elements = document.querySelectorAll('.tbody-row');
@@ -167,51 +167,51 @@ const todoObj = (() => {
 	const addTodo = () => {
 		$('#addTodo').addEventListener('click', (e) => {
 			e.preventDefault();
-			createtodo()
-			clearDom($('tbody'))
-			showTodo()
-		})
+			createtodo();
+			clearDom($('tbody'));
+			showTodo();
+		});
 	}
 
 	return {
 		addTodo,
 		showTodo,
 		clearDom
-	}
-})()
+	};
+})();
 
 todoObj.addTodo();
 todoObj.showTodo();
 
 const changeActive = () => {
 	Array.from($$('.projects')).forEach(cell => {
-		if(project.currProj != cell.innerHTML){
-			cell.classList.remove('active')
+		if (project.currProj != cell.innerHTML) {
+			cell.classList.remove('active');
 		}
-	})
+	});
 }
 
 const editTodo = (index) => {
-	const allproj = project.projectList[project.currProj]
+	const allproj = project.projectList[project.currProj];
 	let title = $('#edit-title');
 	let des = $('#edit-description');
 	let dueDate = $('#edit-dueDate');
 	let priority;
-	allproj.forEach((todo, i) =>{
-		if(i == index){
+	allproj.forEach((todo, i) => {
+		if (i == index) {
 			title.value = todo.title;
 			des.value = todo.description;
 			dueDate.value = todo.dueDate;
-			if(todo.priority == 'urgent'){
-				$("#edit-urgent").checked = true
-				priority = 'urgent'
-			}else{
-				$("#edit-normal").checked  = true
+			if (todo.priority == 'urgent') {
+				$("#edit-urgent").checked = true;
+				priority = 'urgent';
+			} else {
+				$("#edit-normal").checked = true;
 				priority = 'normal';
 			}
 		}
-	})
-	
+	});
+
 	$('#update').addEventListener('click', (e) => {
 		e.preventDefault();
 		const t = title.value;
@@ -219,15 +219,12 @@ const editTodo = (index) => {
 		const due = dueDate.value;
 		let prio;
 		$("#edit-urgent").checked ? prio = "urgent" : prio = 'normal';
-		project.projectList[project.currProj][index] = {t, d, due, prio}
+		project.projectList[project.currProj][index] = { t, d, due, prio }
 		project.projToLocal();
 		window.location.reload();
-		// clearDom($('tbody'))
-		// showTodo()
-		// window.location.reload();
-	})
-	
+	});
+
 }
 
- 
+
 

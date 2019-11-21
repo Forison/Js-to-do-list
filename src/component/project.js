@@ -1,23 +1,23 @@
 const project = (() => {
-	const stored = JSON.parse(localStorage.getItem("proj")) || null
-	let projectList = stored || {'Default' : []}
+	const stored = JSON.parse(localStorage.getItem("proj")) || null;
+	let projectList = stored || { 'Default': [] };
 	let currProj = localStorage.getItem("currProj") || "Default";
-	let currList = projectList[currProj]
-	
+	let currList = projectList[currProj];
+
 	const projToLocal = () => {
-		  localStorage.setItem('proj', JSON.stringify(projectList)) 
+		localStorage.setItem('proj', JSON.stringify(projectList));
 	}
 	const getProjFromLocal = () => {
-		JSON.parse(localStorage.getItem('proj')) || null
+		JSON.parse(localStorage.getItem('proj')) || null;
 	}
 	const setTodoFromLocal = () => {
-		localStorage.setItem('currProj', currProj) || null
+		localStorage.setItem('currProj', currProj) || null;
 	}
-	
+
 	const createProject = (projectTitle) => {
-		projectList[projectTitle] = []
+		projectList[projectTitle] = [];
 	};
-	return { 
+	return {
 		createProject,
 		projectList,
 		projToLocal,
@@ -25,8 +25,8 @@ const project = (() => {
 		currList,
 		setTodoFromLocal,
 		currProj
-		
-	 }
+
+	};
 })();
 export { project as default };
 
