@@ -13,10 +13,15 @@ const main = (() => {
 		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
 			const projectName = $('#projectName').value;
-			project.createProject(projectName);
-			project.projToLocal()
-			clearProjects();
-			showProject();
+			if(projectName === '') {
+				alert('Project name can not be blank ')
+			} else {
+				project.createProject(projectName);
+				project.projToLocal()
+				clearProjects();
+				showProject();
+			}
+			
 		})
 	}
 	const clearProjects = () => {
@@ -32,16 +37,33 @@ const main = (() => {
 			project1.classList.add('projects')
 			$('.projectWrapper').appendChild(project1)
 			project1.addEventListener('click', (e) =>{
+				e.preventDefault();
 				if(project.currProj == project1.innerHTML){return;}
 				project.currProj =  project1.innerHTML
 				localStorage.setItem('currProj', project.currProj)
 				todoObj.clearDom($('tbody'))
 				todoObj.showTodo();
-				console.log(project.currProj)
+				project1.classList.add('active')
+				changeActive()
+				delProject()
 			})
 		}	
 		localStorage.setItem('proj', JSON.stringify(allPro))
 		project.setTodoFromLocal()
+		
+	}
+
+	const delProject = (i) =>{
+		$('#removeProject').addEventListener('click', (e) =>{
+			console.log(project.projectList[project.currProj])
+			if(project.currProj !== 'Default'){
+				delete project.projectList[project.currProj]
+				showProject()
+				window.location.reload();	
+			}
+			
+		})
+		
 	}
 	
 	return {
@@ -105,6 +127,18 @@ const todoObj = (() => {
 			const edit = document.createElement('button');
 			edit.classList.add('edit', 'pl-2', 'pr-2');
 			edit.innerHTML = 'Edit';
+			edit.addEventListener('click', (e)=>{
+				e.preventDefault();
+				$('.edit-todo').style.display = 'block'
+				$('aside').style.opacity = 0.1;
+				$('aside').style.opacity = 0.1;
+				$('.table-responsive').style.opacity = 0.1;
+				$('.todo').style.opacity = 0.1;
+				$('h1').style.opacity = 0.1;
+				$('.main-T').style.display = 'none';
+				editTodo(index);
+				
+			})
 			const del = document.createElement('button');
 			del.innerHTML = 'Del';
 			
@@ -146,16 +180,54 @@ const todoObj = (() => {
 	}
 })()
 
-// const delTodo = (i) =>{
-// 	console.log('me')
-// 	// project.projectList[project.currProj].splice(i, 1)
-// 	// localStorage.setItem('proj', JSON.stringify(project.projectList))
-// 	// todoObj.clearDom($('tbody'));
-// 	todoObj.showTodo();
-// }
-
-
-
 todoObj.addTodo();
 todoObj.showTodo();
+
+const changeActive = () => {
+	Array.from($$('.projects')).forEach(cell => {
+		if(project.currProj != cell.innerHTML){
+			cell.classList.remove('active')
+		}
+	})
+}
+
+const editTodo = (index) => {
+	const allproj = project.projectList[project.currProj]
+	let title = $('#edit-title');
+	let des = $('#edit-description');
+	let dueDate = $('#edit-dueDate');
+	let priority;
+	allproj.forEach((todo, i) =>{
+		if(i == index){
+			title.value = todo.title;
+			des.value = todo.description;
+			dueDate.value = todo.dueDate;
+			if(todo.priority == 'urgent'){
+				$("#edit-urgent").checked = true
+				priority = 'urgent'
+			}else{
+				$("#edit-normal").checked  = true
+				priority = 'normal';
+			}
+		}
+	})
+	
+	$('#update').addEventListener('click', (e) => {
+		e.preventDefault();
+		const t = title.value;
+		const d = des.value;
+		const due = dueDate.value;
+		let prio;
+		$("#edit-urgent").checked ? prio = "urgent" : prio = 'normal';
+		project.projectList[project.currProj][index] = {t, d, due, prio}
+		project.projToLocal();
+		window.location.reload();
+		// clearDom($('tbody'))
+		// showTodo()
+		// window.location.reload();
+	})
+	
+}
+
+ 
 

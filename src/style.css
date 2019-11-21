@@ -31,6 +31,9 @@ h1, h2{
 	margin-left: 5px;
 	margin-bottom: 10px;
 }
+.projects:hover{
+	background-color: #f0e8ec;
+}
 button{
 	color: #8a0f51;
 	font-weight: bold;
@@ -42,20 +45,8 @@ main{
 	height: 90vh;
 	
 }
-/* .th {
-	padding: 0;
-} */
 
-/* .th {
-	background-color: #8a0f51;
-	padding: 5px;
-	text-align: center;
-	color: #fff;
-	border: 1px solid #edd3e1;
-
-} */
 .todoListWrap{
-	/* height: 64vh; */
 	text-align:  center;
 	padding: 0;
 	overflow-y: hidden;
@@ -120,4 +111,24 @@ tbody{
 .del:hover{
 	background-color:#d40404;
 	color:#e0dede;
+}
+.active{
+	background-color: #8a0f51;
+	color: #fff;
+}
+
+.edit-todo{
+	background-color: #8a0f51;
+	border-radius: 10px;
+	color: #fff;
+	display: none;
+	padding: 40px;
+	position: absolute;
+	top: 80px;
+}
+
+#update, #close{
+	background-color: #fff;
+	color: #8a0f51 !important;
+	font-weight: bolder;
 }
