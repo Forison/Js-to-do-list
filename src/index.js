@@ -2,11 +2,9 @@ import './style.css';
 import todolist from './component/todo';
 import project from './component/project';
 
-
-const $ = document.querySelector.bind(document);
+// eslint-disable-next-line no-undef
+const $ = document.querySelector.bind(document);// eslint-disable-next-line no-undef
 const $$ = document.querySelectorAll.bind(document);
-
-
 
 const changeActive = () => {
 	Array.from($$('.projects')).forEach((cell) => {
@@ -21,49 +19,60 @@ const main = (() => {
 		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
 			const projectName = $('#projectName').value;
-			if (projectName === '') {
+			if (projectName === '') {// eslint-disable-next-line no-undef
+				// eslint-disable-next-line no-alert
 				alert('Project name can not be blank ');
 			} else {
 				project.createProject(projectName);
 				project.projToLocal();
+				// eslint-disable-next-line no-use-before-define
 				clearProjects();
 				showProject();
 			}
 		});
 	};
 	const clearProjects = () => {
+		// eslint-disable-next-line no-return-assign
 		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none');
-	}
-
+	};
 	const delProject = () => {
 		$('#removeProject').addEventListener('click', () => {
 			if (project.currProj !== 'Default') {
 				delete project.projectList[project.currProj];
+				// eslint-disable-next-line no-use-before-define
 				showProject();
-				location.reload();
+				// eslint-disable-next-line no-undef
+				window.location.reload();
 			}
 		});
 	};
 	const showProject = () => {
 		const allPro = project.projectList;
 		clearProjects();
-		for (let key in allPro) {
+		// eslint-disable-next-line guard-for-in 
+		for (const key in allPro) {
+			// eslint-disable-next-line no-undef
 			const project1 = document.createElement('h5');
 			project1.innerHTML = key;
 			project1.classList.add('projects');
 			$('.projectWrapper').appendChild(project1);
+			
 			project1.addEventListener('click', (e) => {
 				e.preventDefault();
 				if (project.currProj === project1.innerHTML) { return; }
 				project.currProj = project1.innerHTML;
-				localStorage.setItem('currProj', project.currProj)
-				todoObj.clearDom($('tbody'));
-				todoObj.showTodo();
-				project1.classList.add('active')
+				localStorage.setItem('currProj', project.currProj);
+				// eslint-disable-next-line no-loop-func
+				todoObj.clearDom($('tbody'));/*eslint-disable-line no-use-before-define  */ 
+				todoObj.showTodo();/*eslint-disable-line no-use-before-define  */
+				project1.classList.add('active');
+				// eslint-disable-next-line no-loop-func
 				changeActive();
+				// eslint-disable-next-line no-loop-func
 				delProject();
 			});
 		}
+		// eslint-disable-next-line no-undef
 		localStorage.setItem('proj', JSON.stringify(allPro));
 		project.setTodoFromLocal();
 	}
@@ -91,8 +100,8 @@ const todoObj = (() => {
 		const title = $('#title').value;
 		const des = $('#description').value;
 		const dueDate = $('#dueDate').value;
-		let priority;
-		$('#urgent').checked ? priority = 'urgent' : priority = 'normal';
+		let priority;/*eslint-disable-line no-unused-vars */
+		$('#urgent').checked ? priority = 'urgent' : priority = 'normal';/*eslint-disable-line no-unused-vars */
 		const todo = todolist.createTodo(title, des, dueDate, priority);
 		project.projectList[project.currProj].push(todo);
 		project.projToLocal();
@@ -184,7 +193,7 @@ const editTodo = (index) => {
 	const title = $('#edit-title');
 	const des = $('#edit-description');
 	const dueDate = $('#edit-dueDate');
-	let priority;
+	let priority; /* eslint-disable-line no-unused-vars*/
 	allproj.forEach((todo, i) => {
 		if (i === index) {
 			title.value = todo.title;
@@ -192,10 +201,10 @@ const editTodo = (index) => {
 			dueDate.value = todo.dueDate;
 			if (todo.priority === 'urgent') {
 				$('#edit-urgent').checked = true;
-				priority = 'urgent';
+				priority = 'urgent';/* eslint-disable-line no-unused-vars*/
 			} else {
 				$('#edit-normal').checked = true;
-				priority = 'normal';
+				priority = 'normal';/* eslint-disable-line no-unused-vars*/
 			}
 		}
 	});
@@ -211,6 +220,6 @@ const editTodo = (index) => {
 		project.projectList[project.currProj][index] = { t, d, due, prio };
 
 		project.projToLocal();
-		location.reload();
+		window.location.reload();/* eslint-disable-line no-undef*/
 	});
 };

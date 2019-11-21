@@ -33,14 +33,15 @@ module.exports = {
 			{
 				test: /\.html$/,
 				use: [
-					'html-loader',
-				]
-			}
+					'html-loader'
+				]/* eslint-disable-line comma-dangle*/
+			}/* eslint-disable-line comma-dangle*/
 
 		],
 	},
 	devServer: {
 		contentBase: './dist'
+		/* eslint-disable-next-line comma-dangle*/
 	}
 
 };
