@@ -6,7 +6,8 @@ module.exports = {
 	output: {
 		filename: 'main.js',
 		path: path.resolve(__dirname, 'dist'),
-	}, module: {
+	},
+	module: {
 		rules: [
 			{
 				test: /\.css$/,
@@ -32,14 +33,14 @@ module.exports = {
 			{
 				test: /\.html$/,
 				use: [
-					"html-loader",
-				],
+					'html-loader',
+				]
 			}
 
 		],
 	},
 	devServer: {
-		contentBase: './dist',
+		contentBase: './dist'
 	}
 
 };

@@ -8,6 +8,14 @@ const $$ = document.querySelectorAll.bind(document);
 
 
 
+const changeActive = () => {
+	Array.from($$('.projects')).forEach((cell) => {
+		if (project.currProj !== cell.innerHTML) {
+			cell.classList.remove('active');
+		}
+	});
+};
+
 const main = (() => {
 	const addProject = () => {
 		$('#addProject').addEventListener('click', (e) => {
@@ -21,13 +29,21 @@ const main = (() => {
 				clearProjects();
 				showProject();
 			}
-
-		})
-	}
+		});
+	};
 	const clearProjects = () => {
 		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none');
 	}
 
+	const delProject = () => {
+		$('#removeProject').addEventListener('click', () => {
+			if (project.currProj !== 'Default') {
+				delete project.projectList[project.currProj];
+				showProject();
+				location.reload();
+			}
+		});
+	};
 	const showProject = () => {
 		const allPro = project.projectList;
 		clearProjects();
@@ -38,7 +54,7 @@ const main = (() => {
 			$('.projectWrapper').appendChild(project1);
 			project1.addEventListener('click', (e) => {
 				e.preventDefault();
-				if (project.currProj == project1.innerHTML) { return; }
+				if (project.currProj === project1.innerHTML) { return; }
 				project.currProj = project1.innerHTML;
 				localStorage.setItem('currProj', project.currProj)
 				todoObj.clearDom($('tbody'));
@@ -50,79 +66,63 @@ const main = (() => {
 		}
 		localStorage.setItem('proj', JSON.stringify(allPro));
 		project.setTodoFromLocal();
-
-	}
-
-	const delProject = (i) => {
-		$('#removeProject').addEventListener('click', (e) => {
-			
-			if (project.currProj !== 'Default') {
-				delete project.projectList[project.currProj];
-				showProject();
-				window.location.reload();
-			}
-
-		});
-
 	}
 
 	return {
 		addProject,
 		showProject
 	};
-
-
 })();
 main.addProject();
 main.showProject();
 
 $('#removeProject').addEventListener('click', (e) => {
 	e.preventDefault();
-})
+});
 
 const todoObj = (() => {
-
 	const clearDom = (node) => {
 		while (node.firstChild) {
 			node.removeChild(node.firstChild);
 		}
-	}
+	};
 
 	const createtodo = () => {
 		const title = $('#title').value;
 		const des = $('#description').value;
 		const dueDate = $('#dueDate').value;
 		let priority;
-		$("#urgent").checked ? priority = "urgent" : priority = 'normal';
+		$('#urgent').checked ? priority = 'urgent' : priority = 'normal';
 		const todo = todolist.createTodo(title, des, dueDate, priority);
 		project.projectList[project.currProj].push(todo);
 		project.projToLocal();
-
 	};
 
+	const checking = (checkbox, index) => {
+		const elements = document.querySelectorAll('.tbody-row');
+		checkbox.checked ? elements[index].classList.add('strike') : elements[index].classList.remove('strike');
+	};
 	const showTodo = () => {
 		const lists = project.projectList[project.currProj];
 		lists.forEach((todo, index) => {
-			let tr = document.createElement('tr');
+			const tr = document.createElement('tr');
 			tr.classList.add('tbody-row');
 			tr.setAttribute('data-id', index);
-
 			for (let ele in todo) {
-				let td = document.createElement('td');
+				const td = document.createElement('td');
 				td.innerHTML = todo[ele];
 				tr.appendChild(td);
 			}
-
-			let completed = document.createElement('td');
-			let checkbox = document.createElement('input');
+			const completed = document.createElement('td');
+			const checkbox = document.createElement('input');
 			checkbox.classList.add('complete');
 			checkbox.type = 'checkbox';
 			checkbox.name = 'completed';
 			completed.appendChild(checkbox);
 			tr.appendChild(completed);
 
-			let action = document.createElement('td');
-			action.classList.add("d-flex");
+			const action = document.createElement('td');
+			action.classList.add('d-flex');
 			tr.appendChild(action);
 			const edit = document.createElement('button');
 			edit.classList.add('edit', 'pl-2', 'pr-2');
@@ -147,7 +147,7 @@ const todoObj = (() => {
 			action.appendChild(del);
 
 			$('tbody').appendChild(tr);
-			del.addEventListener('click', (e) => {
+			del.addEventListener('click', () => {
 				clearDom($('tbody'));
 				project.projectList[project.currProj].splice(index, 1);
 				showTodo();
@@ -155,14 +155,10 @@ const todoObj = (() => {
 			checkbox.addEventListener('click', () => {
 				checking(checkbox, index);
 			});
-
 		});
+
 		localStorage.setItem('proj', JSON.stringify(project.projectList));
-	}
-	const checking = (checkbox, index) => {
-		let elements = document.querySelectorAll('.tbody-row');
-		checkbox.checked ? elements[index].classList.add('strike') : elements[index].classList.remove('strike');
-	}
+	};
 
 	const addTodo = () => {
 		$('#addTodo').addEventListener('click', (e) => {
@@ -171,7 +167,7 @@ const todoObj = (() => {
 			clearDom($('tbody'));
 			showTodo();
 		});
-	}
+	};
 
 	return {
 		addTodo,
@@ -183,30 +179,22 @@ const todoObj = (() => {
 todoObj.addTodo();
 todoObj.showTodo();
 
-const changeActive = () => {
-	Array.from($$('.projects')).forEach(cell => {
-		if (project.currProj != cell.innerHTML) {
-			cell.classList.remove('active');
-		}
-	});
-}
-
 const editTodo = (index) => {
 	const allproj = project.projectList[project.currProj];
-	let title = $('#edit-title');
-	let des = $('#edit-description');
-	let dueDate = $('#edit-dueDate');
+	const title = $('#edit-title');
+	const des = $('#edit-description');
+	const dueDate = $('#edit-dueDate');
 	let priority;
 	allproj.forEach((todo, i) => {
-		if (i == index) {
+		if (i === index) {
 			title.value = todo.title;
 			des.value = todo.description;
 			dueDate.value = todo.dueDate;
-			if (todo.priority == 'urgent') {
-				$("#edit-urgent").checked = true;
+			if (todo.priority === 'urgent') {
+				$('#edit-urgent').checked = true;
 				priority = 'urgent';
 			} else {
-				$("#edit-normal").checked = true;
+				$('#edit-normal').checked = true;
 				priority = 'normal';
 			}
 		}
@@ -218,13 +206,11 @@ const editTodo = (index) => {
 		const d = des.value;
 		const due = dueDate.value;
 		let prio;
-		$("#edit-urgent").checked ? prio = "urgent" : prio = 'normal';
-		project.projectList[project.currProj][index] = { t, d, due, prio }
+		$('#edit-urgent').checked ? prio = 'urgent' : prio = 'normal';
+
+		project.projectList[project.currProj][index] = { t, d, due, prio };
+
 		project.projToLocal();
-		window.location.reload();
+		location.reload();
 	});
-
-}
-
-
-
+};

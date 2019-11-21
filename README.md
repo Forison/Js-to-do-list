@@ -15,18 +15,18 @@ The project is part of a series of projects to be completed by students of [Micr
 > Clone the repository to your local machine
 
 ```sh
-$ git clone https://github.com/forison/Js-todo-list.git
+$ git clone https://github.com/forison/Js-to-do-list.git
 ```
 
 > cd into the directory
 
 ```sh
-$ cd Js-todo-list
+$ cd Js-to-do-list
 ```
-> git clone https://github.com/forison/Js-todo-list
+> git clone https://github.com/forison/Js-to-do-list
 
 ``` 
-cd Js-todo-lists 
+cd Js-to-do-list 
 ```
 ```
  npm install
