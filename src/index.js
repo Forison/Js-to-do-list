@@ -1,3 +1,5 @@
+/*global window, localStorage */
+/*eslint no-undef: "error"*/
 import './style.css';
 import todolist from './component/todo';
 import project from './component/project';
@@ -191,7 +193,7 @@ const editTodo = (index) => {
 	const title = $('#edit-title');
 	const des = $('#edit-description');
 	const dueDate = $('#edit-dueDate');
-	let priority; /* eslint-disable-line no-unused-vars*/
+	let priority;
 	allproj.forEach((todo, i) => {
 		if (i === index) {
 			title.value = todo.title;
@@ -199,10 +201,10 @@ const editTodo = (index) => {
 			dueDate.value = todo.dueDate;
 			if (todo.priority === 'urgent') {
 				$('#edit-urgent').checked = true;
-				priority = 'urgent';/* eslint-disable-line no-unused-vars*/
+				priority = 'urgent';
 			} else {
 				$('#edit-normal').checked = true;
-				priority = 'normal';/* eslint-disable-line no-unused-vars*/
+				priority = 'normal';
 			}
 		}
 	});
@@ -215,9 +217,11 @@ const editTodo = (index) => {
 		let prio;
 		$('#edit-urgent').checked ? prio = 'urgent' : prio = 'normal';
 
-		project.projectList[project.currProj][index] = { t, d, due, prio };
+		project.projectList[project.currProj][index] = {
+			t, d, due, prio
+		};
 
 		project.projToLocal();
-		window.location.reload();/* eslint-disable-line no-undef*/
+		window.location.reload();
 	});
 };
