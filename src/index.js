@@ -2,8 +2,8 @@ import './style.css';
 import todolist from './component/todo';
 import project from './component/project';
 
-// eslint-disable-next-line no-undef
-const $ = document.querySelector.bind(document);// eslint-disable-next-line no-undef
+
+const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const changeActive = () => {
@@ -19,29 +19,27 @@ const main = (() => {
 		$('#addProject').addEventListener('click', (e) => {
 			e.preventDefault();
 			const projectName = $('#projectName').value;
-			if (projectName === '') {// eslint-disable-next-line no-undef
-				// eslint-disable-next-line no-alert
+			if (projectName === '') {
 				alert('Project name can not be blank ');
 			} else {
 				project.createProject(projectName);
 				project.projToLocal();
-				// eslint-disable-next-line no-use-before-define
+				
 				clearProjects();
 				showProject();
 			}
 		});
 	};
 	const clearProjects = () => {
-		// eslint-disable-next-line no-return-assign
 		Array.from($$('.projects')).forEach(cell => cell.style.display = 'none');
 	};
 	const delProject = () => {
 		$('#removeProject').addEventListener('click', () => {
 			if (project.currProj !== 'Default') {
 				delete project.projectList[project.currProj];
-				// eslint-disable-next-line no-use-before-define
+				
 				showProject();
-				// eslint-disable-next-line no-undef
+				
 				window.location.reload();
 			}
 		});
@@ -49,9 +47,9 @@ const main = (() => {
 	const showProject = () => {
 		const allPro = project.projectList;
 		clearProjects();
-		// eslint-disable-next-line guard-for-in 
+		 
 		for (const key in allPro) {
-			// eslint-disable-next-line no-undef
+			
 			const project1 = document.createElement('h5');
 			project1.innerHTML = key;
 			project1.classList.add('projects');
@@ -62,17 +60,17 @@ const main = (() => {
 				if (project.currProj === project1.innerHTML) { return; }
 				project.currProj = project1.innerHTML;
 				localStorage.setItem('currProj', project.currProj);
-				// eslint-disable-next-line no-loop-func
-				todoObj.clearDom($('tbody'));/*eslint-disable-line no-use-before-define  */ 
-				todoObj.showTodo();/*eslint-disable-line no-use-before-define  */
+				
+				todoObj.clearDom($('tbody')); 
+				todoObj.showTodo();
 				project1.classList.add('active');
-				// eslint-disable-next-line no-loop-func
+				
 				changeActive();
-				// eslint-disable-next-line no-loop-func
+				
 				delProject();
 			});
 		}
-		// eslint-disable-next-line no-undef
+		
 		localStorage.setItem('proj', JSON.stringify(allPro));
 		project.setTodoFromLocal();
 	}
