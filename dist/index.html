@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>To Do List</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<h1> JS TO DO LIST</h1>
+		<div class="row">
+			<aside class="col-md-3">
+				<h2> Project List</h2>
+				<div class="projectWrapper">
+				</div>
+				<div class="addProject">
+					<form action="">
+						<label for=""> Project Name</label>
+						<input type="text" id="projectName" required>
+						<div class="submit">
+							<button id="addProject" class="btn btn-default bg-light"> Add Project</button>
+							<button id="removeProject" class="btn btn-default bg-light"> Delete Project</button>
+						</div>
+					</form>
+				</div>
+			</aside>
+			<main class="col-md-8 ml-4 p-0 ">
+				<h2 class="main-T"> To Do List </h2>
+				<div class="table-responsive mb-2 ">
+					<table class="table todoListWrap mb-4 ">
+						<thead class="thead-dark sticky-top">
+							<tr>
+								<td scope='col'>Title </td>
+								<td scope='col'>Description </td>
+								<td scope='col'>Due Date </td>
+								<td scope='col'>Priority </td>
+								<td scope='col'>Completed </td>
+								<td scope='col'>Action </td>
+							</tr>
+						</thead>
+						<tbody class="tbody">
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+				<form action="" class="px-4 todo">
+					<label for=""> Title:</label>
+					<input type="text" id="title" placeholder="enter title">
+					<label for=""> Description:</label>
+					<input type="text" id="description" placeholder="enter description">
+					<label for=""> Due Date:</label>
+					<input type="date" id="dueDate" placeholder="enter date"> <br>
+					<label for=""> Priority</label>
+					<div class="row">
+						<div class="col-md-2">
+							<div>
+								<input type="radio" id="urgent" name="priority" value="urgent" class="priority"> urgent
+							</div>
+							<div class="mb-4">
+								<input type="radio" id="normal" name="priority" value="normal" class="priority"> normal
+							</div>
+						</div>
+						<div class="col-md-2 todo">
+							<button id="addTodo" class="btn btn-default bg-light float-right"> Add Todo</button>
+						</div>
+
+
+					</div>
+				</form>
+
+				<!-- Edit Todo list  -->
+				<form action="" class="edit-todo">
+					<h3 class="text-center mb-4"> Edit Todo</h3>
+					<label for=""> Title:</label>
+					<input type="text" id="edit-title" placeholder="enter title">
+					<label for=""> Description:</label>
+					<input type="text" id="edit-description" placeholder="enter description">
+					<label for=""> Due Date:</label>
+					<input type="date" id="edit-dueDate" placeholder="enter date"> <br>
+					<label for=""> Priority</label>
+					<div class="row">
+						<div class="col-md-2">
+							<div>
+								<input type="radio" id="edit-urgent" name="priority" value="urgent" class="priority"> urgent
+							</div>
+							<div class="mb-4">
+								<input type="radio" id="edit-normal" name="priority" value="normal" class="priority"> normal
+							</div>
+						</div>
+						<div class="col-md-4 ">
+							<button id="update" class="btn "> Update </button>
+							<button id="close" class="btn ml-3"> Close </button>
+						</div>
+
+
+					</div>
+				</form>
+			</main>
+
+		</div>
+
+	</div>
+
+	<script src="main.js"></script>
+</body>
+
+</html>
