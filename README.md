@@ -10,11 +10,11 @@ The project is part of a series of projects to be completed by students of [Micr
 - CSS
 - Javascript
 - webpack
-## Usage
 
 ## Demo
-[Click](https://raw.githack.com/Forison/Js-to-do-list/homepage/dist/index.html)
+ Check out the live demo of the project. [Click](https://raw.githack.com/Forison/Js-to-do-list/homepage/dist/index.html)
 
+## Usage
 > Clone the repository to your local machine
 
 ```sh
