@@ -12,6 +12,9 @@ The project is part of a series of projects to be completed by students of [Micr
 - webpack
 ## Usage
 
+## Demo
+[Click](https://raw.githack.com/Forison/Js-to-do-list/homepage/dist/index.html)
+
 > Clone the repository to your local machine
 
 ```sh
